@@ -9,7 +9,7 @@ RUN pip3 install fastapi uvicorn python-multipart
 
 COPY omr.py .
 COPY app.py .
-COPY img .
+COPY img ./img
 
 EXPOSE 8080
 
