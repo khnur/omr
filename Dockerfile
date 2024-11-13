@@ -5,7 +5,7 @@ COPY requirements.txt .
 
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 RUN pip3 install --no-cache-dir -r requirements.txt
-RUN pip3 install fastapi uvicorn python-multipart
+RUN pip3 install fastapi uvicorn requests
 
 COPY omr.py .
 COPY app.py .
