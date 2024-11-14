@@ -260,7 +260,7 @@ def get_letter(alt_index):
     return ["A", "B", "C", "D", "E"][alt_index] if alt_index is not None else "N/A"
 
 
-def get_answers(file_np_arr) -> dict[int, str | list[str]]:
+def get_answers(file_bytes) -> dict[int, str | list[str]]:
     """Runs the full pipeline:
 
     - Loads input image
@@ -271,6 +271,7 @@ def get_answers(file_np_arr) -> dict[int, str | list[str]]:
     - Applies perpsective transform to get a bird's eye view
     - Scans each line for the marked alternative
     """
+    np_arr = np.frombuffer(file_bytes, np.uint8)
     im_orig = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
 
     im_normalized = normalize(im_orig)
@@ -296,7 +297,5 @@ def get_answers(file_np_arr) -> dict[int, str | list[str]]:
 
 with open('img/answered-sheet-photo.jpg', 'rb') as file:
     file_bytes = file.read()
-np_arr = np.frombuffer(file_bytes, np.uint8)
-
-answers: dict[int, str] = get_answers(np_arr)
-print(answers)
+    answers: dict[int, str] = get_answers(file_bytes)
+    print(answers)
